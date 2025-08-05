@@ -12,6 +12,9 @@ description: |-
 ## Example Usage
 
 ```terraform
+# Copyright (c) AnticliMaxtic
+# SPDX-License-Identifier: MPL-2.0
+
 provider "hex" {
 }
 ```
