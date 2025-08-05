@@ -6,6 +6,7 @@ package provider
 import (
 	"context"
 	"encoding/hex"
+	"fmt"
 
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
@@ -157,5 +158,21 @@ func (r *HexStringResource) Delete(ctx context.Context, req resource.DeleteReque
 }
 
 func (r *HexStringResource) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
-	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
+	// The imported ID should be the hex result
+	hexResult := req.ID
+
+	// Decode the hex back to the original data
+	originalData, err := hex.DecodeString(hexResult)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Import Error",
+			fmt.Sprintf("Could not decode hex string '%s': %s", hexResult, err),
+		)
+		return
+	}
+
+	// Set all the attributes based on the imported hex
+	resp.State.SetAttribute(ctx, path.Root("id"), hexResult)
+	resp.State.SetAttribute(ctx, path.Root("result"), hexResult)
+	resp.State.SetAttribute(ctx, path.Root("data"), string(originalData))
 }
