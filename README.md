@@ -1,48 +1,104 @@
 # Terraform Hex Provider
 
-Converts a normal string to a hex string.
+A Terraform provider that converts strings to hexadecimal representation.
 
-Based on the [Writing Custom Providers](https://www.terraform.io/docs/extend/writing-custom-providers.html) tutorial and the [Random Provider](https://github.com/hashicorp/terraform-provider-random)
+## Features
+
+- **hex_string resource**: Converts input data to hexadecimal encoding
+- Built using the modern Terraform Plugin Framework
+- Lightweight and efficient
 
 ## Example Usage
 
 ```hcl
-resource "random_password" "key" {
+resource "hex_string" "example" {
+  data = "hello world"
+}
+
+output "hex_result" {
+  value = hex_string.example.result  # Outputs: "68656c6c6f20776f726c64"
+}
+```
+
+### Use Case: imgproxy Configuration
+
+`imgproxy` requires keys and salts to be hex-encoded:
+
+```hcl
+resource "random_password" "imgproxy_key" {
   length = 32
 }
 
-resource "hex_string" "key-hex" {
-  data = random_password.password.result
+resource "hex_string" "imgproxy_key_hex" {
+  data = random_password.imgproxy_key.result
 }
 
-resource "helm_release" "jupiter" {
-  name       = "jupiter"
-  chart      = "jupiter"
+resource "helm_release" "imgproxy" {
+  name       = "imgproxy"
+  chart      = "imgproxy"
   version    = "1.0.0"
 
   set_sensitive {
     name  = "key"
-    value = hex_string.key_hex.result
+    value = hex_string.imgproxy_key_hex.result
   }
 }
 ```
 
-## Specific Use Case
+## Schema
 
-`imgproxy` requires it's key and salt to be hex-encoded, but there only exist built-in functions for [`base64`](https://www.terraform.io/docs/configuration/functions/base64encode.html), [`json`](https://www.terraform.io/docs/configuration/functions/jsonencode.html), [`url`](https://www.terraform.io/docs/configuration/functions/urlencode.html), and [`yaml`](https://www.terraform.io/docs/configuration/functions/yamlencode.html) encoding.
+### Resource: hex_string
 
-## Building/Testing
+#### Arguments
 
-1. Make sure you still have `go` installed (`brew install go`)
-1. `VERSION=X.Y.Z make build` (don't include the `v` before the version)
-1. Follow the instructions [here](https://www.terraform.io/docs/extend/how-terraform-works.html#plugin-locations) to install the plugin
-1. Run `terraform init`
-1. Run `terraform plan`
-1. Run `terraform apply`
-1. Repeat steps 3-7 as you make changes.
+- `data` (String, Required) - The input data to convert to hexadecimal
 
-## Publishing
-The [Jupiter-Inc/terraform-provider-hex](https://github.com/Jupiter-Inc/terraform-provider-hex) repository is published from the main Jupiter platform repository (private).
+#### Attributes
 
-1. Make sure you have `hub` installed (`brew install hub`)
-1. `VERSION=X.Y.Z make publish` (don't include the `v` before the version)
+- `id` (String) - Unique identifier for the resource (same as result)
+- `result` (String) - The hexadecimal representation of the input data
+
+## Installation
+
+### Terraform Registry
+
+```hcl
+terraform {
+  required_providers {
+    hex = {
+      source  = "AnticliMaxtic/hex"
+      version = "~> 1.0"
+    }
+  }
+}
+```
+
+### Local Development
+
+1. Clone this repository
+2. Build: `go build`
+3. Install locally using Terraform's development overrides
+
+## Development
+
+### Building
+
+```bash
+go build
+```
+
+### Testing
+
+```bash
+go test ./internal/provider/
+```
+
+### Acceptance Testing
+
+```bash
+TF_ACC=1 go test ./internal/provider/ -v
+```
+
+## License
+
+This project is licensed under the MPL 2.0 License - see the [LICENSE](LICENSE) file for details.
