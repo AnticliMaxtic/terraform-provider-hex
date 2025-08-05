@@ -1,3 +1,6 @@
+# Copyright (c) AnticliMaxtic
+# SPDX-License-Identifier: MPL-2.0
+
 # Example usage of the hex provider
 terraform {
   required_providers {
