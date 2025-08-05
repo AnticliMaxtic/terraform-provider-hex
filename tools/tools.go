@@ -14,9 +14,8 @@ import (
 //go:generate go run github.com/hashicorp/copywrite headers -d .. --config ../.copywrite.hcl
 
 // Format Terraform code for use in documentation.
-// If you do not have Terraform/OpenTofu installed, you can remove the formatting command, but it is suggested
-// to ensure the documentation is formatted properly.
-//go:generate tofu fmt -recursive ../examples/
+// This will try to use tofu first, then terraform, or skip if neither is available
+//go:generate go run format_terraform.go
 
 // Generate documentation.
 //go:generate go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-dir .. -provider-name hex
