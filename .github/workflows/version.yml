@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: Version Bump
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    environment: publish
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          release-type: go
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          skip-github-release: true
