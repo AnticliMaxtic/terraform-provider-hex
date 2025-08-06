@@ -25,6 +25,5 @@ jobs:
           git_commit_gpgsign: true
       - uses: googleapis/release-please-action@v4
         with:
-          release-type: go
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
-          skip-github-release: true
+          config-file: release-please-config.json
