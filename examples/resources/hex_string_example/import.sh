@@ -1,0 +1,1 @@
+terraform import hex_string.example "this is an example string"
