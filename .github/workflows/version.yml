@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: publish
     steps:
+      - uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
       - uses: googleapis/release-please-action@v4
         with:
           release-type: go
