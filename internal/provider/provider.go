@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
 // Ensure HexProvider satisfies various provider interfaces.
@@ -31,7 +30,6 @@ type HexProvider struct {
 
 // HexProviderModel describes the provider data model.
 type HexProviderModel struct {
-	Endpoint types.String `tfsdk:"endpoint"`
 }
 
 func (p *HexProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -41,12 +39,7 @@ func (p *HexProvider) Metadata(ctx context.Context, req provider.MetadataRequest
 
 func (p *HexProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"endpoint": schema.StringAttribute{
-				MarkdownDescription: "Example provider attribute",
-				Optional:            true,
-			},
-		},
+		Attributes: map[string]schema.Attribute{},
 	}
 }
 
