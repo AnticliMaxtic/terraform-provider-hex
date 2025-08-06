@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/AnticliMaxtic/terraform-provider-hex/compare/v1.0.3...v1.0.4) (2025-08-06)
+
+
+### Performance Improvements
+
+* do not execute triage workflow on pr ([4b2dc95](https://github.com/AnticliMaxtic/terraform-provider-hex/commit/4b2dc95e67d0008a0e185d0f3c168c70abb73c1d))
+
 ## [1.0.3](https://github.com/AnticliMaxtic/terraform-provider-hex/compare/v1.0.2...v1.0.3) (2025-08-06)
 
 
