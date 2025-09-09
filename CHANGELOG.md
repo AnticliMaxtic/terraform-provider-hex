@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/AnticliMaxtic/terraform-provider-hex/compare/v1.0.4...v1.0.5) (2025-09-09)
+
+
+### Bug Fixes
+
+* **docs:** add documentation for import ([4fac122](https://github.com/AnticliMaxtic/terraform-provider-hex/commit/4fac122e70fd3d3cfdb204db13c45f8937c43085))
+
 ## [1.0.4](https://github.com/AnticliMaxtic/terraform-provider-hex/compare/v1.0.3...v1.0.4) (2025-08-06)
 
 
