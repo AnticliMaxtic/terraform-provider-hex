@@ -6,7 +6,7 @@ repos:
     rev: v1.99.5
     hooks:
       - id: terraform_fmt
-        args: ["--diff"]
+        args: [--args=-diff]
         files: \.(tf|tfvars)$
 
   - repo: local
@@ -20,7 +20,7 @@ repos:
         stages: [manual, pre-commit]
       - id: generate-docs
         name: Generate Terraform Provider Docs
-        entry: go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-dir . -provider-name hex
+        entry: go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs generate --provider-name hex --provider-dir . --website-source-dir ./templates
         language: system
         pass_filenames: false
         always_run: true
